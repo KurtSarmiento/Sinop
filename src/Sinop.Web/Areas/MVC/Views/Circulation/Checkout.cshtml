@@ -1,0 +1,24 @@
+@model LoanRequest
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h2>Checkout Book</h2>
+
+<div class="card">
+    <form asp-action="Checkout" method="post">
+        <div class="field">
+            <label asp-for="BookId">Book ID</label>
+            <input asp-for="BookId" type="number" />
+            <span asp-validation-for="BookId" class="error"></span>
+        </div>
+        <div class="field">
+            <label asp-for="UserId">Borrower User ID</label>
+            <input asp-for="UserId" type="text" />
+            <span asp-validation-for="UserId" class="error"></span>
+        </div>
+        <button type="submit" class="btn">Checkout</button>
+        <a asp-action="Index" class="btn btn-outline" style="margin-left:0.5rem;">Cancel</a>
+    </form>
+</div>

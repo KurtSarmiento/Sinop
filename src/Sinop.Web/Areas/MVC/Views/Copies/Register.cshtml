@@ -1,0 +1,38 @@
+@model BookCopyRequest
+
+@{
+    ViewData["Title"] = "Register Copy";
+}
+
+<h2>Register Physical Copy</h2>
+
+<div class="card">
+    <form asp-action="Register" method="post">
+        <div class="field">
+            <label asp-for="BookId">Book ID</label>
+            <input asp-for="BookId" type="number" />
+            <span asp-validation-for="BookId" class="error"></span>
+        </div>
+        <div class="field">
+            <label asp-for="AccessionNumber">Accession Number</label>
+            <input asp-for="AccessionNumber" type="text" placeholder="Auto-generated if blank" />
+            <span asp-validation-for="AccessionNumber" class="error"></span>
+        </div>
+        <div class="field">
+            <label asp-for="Status">Status</label>
+            <select asp-for="Status">
+                <option value="0">Available</option>
+                <option value="1">Borrowed</option>
+                <option value="2">Reserved</option>
+                <option value="3">Maintenance</option>
+                <option value="4">Lost</option>
+            </select>
+        </div>
+        @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+        {
+            <div class="error">@ViewData["ErrorMessage"]</div>
+        }
+        <button type="submit" class="btn">Register</button>
+        <a asp-action="Index" class="btn btn-outline" style="margin-left:0.5rem;">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,135 @@
+@model PagedResult<BookResponse>
+@using Sinop.Domain.Entities
+
+@{
+    ViewData["Title"] = "Catalog";
+    var categories = ViewData["Categories"] as IEnumerable<Category> ?? Enumerable.Empty<Category>();
+}
+
+<div class="section-heading catalog-heading">
+    <div>
+        <h2>Book Catalog</h2>
+        <p>@Model.TotalCount title@(Model.TotalCount == 1 ? "" : "s") in the collection</p>
+    </div>
+    @if (User.IsInRole("Librarian") || User.IsInRole("Administrator"))
+    {
+        <div class="button-row">
+            <a asp-action="Create" class="btn">Add book</a>
+            <a asp-action="ExternalSearch" class="btn btn-outline">Search Open Library</a>
+        </div>
+    }
+</div>
+
+<div class="card catalog-filters">
+    <form asp-action="Index" method="get">
+        <input type="hidden" name="page" value="1" />
+        <div class="catalog-filter-grid">
+            <div class="field">
+                <label for="catalog-search">Title or ISBN</label>
+                <input id="catalog-search" type="text" name="search" value="@ViewData["Search"]" placeholder="Search the catalog" />
+            </div>
+            <div class="field">
+                <label for="catalog-author">Author</label>
+                <input id="catalog-author" type="text" name="author" value="@ViewData["Author"]" placeholder="Author name" />
+            </div>
+            <div class="field">
+                <label for="catalog-category">Category</label>
+                <select id="catalog-category" name="categoryId">
+                    <option value="">All categories</option>
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category.Id" selected="@(ViewData["CategoryId"]?.ToString() == category.Id.ToString())">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="field">
+                <label for="catalog-year">Published year</label>
+                <input id="catalog-year" type="number" name="publicationYear" min="1000" max="2100" value="@ViewData["PublicationYear"]" placeholder="e.g. 1987" />
+            </div>
+        </div>
+        <div class="catalog-filter-actions">
+            <label class="availability-filter">
+                <input type="checkbox" name="availableOnly" value="true" checked="@(ViewData["AvailableOnly"] as bool? == true)" />
+                Available copies only
+            </label>
+            <div class="button-row">
+                <button type="submit" class="btn">Apply filters</button>
+                <a asp-action="Index" class="btn btn-outline">Clear</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@if (Model.Items.Count == 0)
+{
+    <div class="card empty-state">
+        <h3>No books found</h3>
+        <p class="muted">Try changing or clearing the active filters.</p>
+    </div>
+}
+else
+{
+    <section class="book-grid" aria-label="Book catalog">
+        @foreach (var book in Model.Items)
+        {
+            <article class="book-card">
+                <div class="book-cover-wrap">
+                    @if (!string.IsNullOrWhiteSpace(book.CoverUrl))
+                    {
+                        <div class="book-cover-wrap">
+                            <div class="book-cover-placeholder"><span>Sinop</span></div>
+                            <img class="book-cover" src="@book.CoverUrl" alt="Cover of @book.Title" loading="lazy" onerror="this.style.display='none'" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="book-cover-placeholder"><span>Sinop</span></div>
+                    }
+                </div>
+                <div class="book-card-body">
+                    <span class="book-category">@(book.CategoryName ?? "Uncategorized")</span>
+                    <h3>@book.Title</h3>
+                    <p class="book-author">@string.Join(", ", book.Authors)</p>
+                    @if (book.FirstPublishYear.HasValue)
+                    {
+                        <p class="book-year">Published @book.FirstPublishYear</p>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(book.Summary))
+                    {
+                        <p class="book-summary">@book.Summary</p>
+                    }
+                    <div class="book-meta">
+                        <span><b>@book.AvailableCount</b> available</span>
+                        <span><b>@book.CopyCount</b> copies</span>
+                    </div>
+                    <div class="book-actions">
+                        <a asp-action="Details" asp-route-id="@book.Id" class="btn btn-outline">Details</a>
+                        @if (User.IsInRole("Librarian") || User.IsInRole("Administrator"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@book.Id" class="btn">Edit</a>
+                            <form asp-action="Archive" method="post" onsubmit="return confirm('Remove this book from the catalog?');">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@book.Id" />
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </article>
+        }
+    </section>
+}
+
+<div class="catalog-pagination">
+    <span class="muted">Page @Model.Page of @Math.Max(1, Model.TotalPages)</span>
+    <div class="button-row">
+        @if (Model.Page > 1)
+        {
+            <a asp-action="Index" asp-route-page="@(Model.Page - 1)" asp-route-search="@ViewData["Search"]" asp-route-author="@ViewData["Author"]" asp-route-categoryId="@ViewData["CategoryId"]" asp-route-publicationYear="@ViewData["PublicationYear"]" asp-route-availableOnly="@ViewData["AvailableOnly"]" class="btn btn-outline">Previous</a>
+        }
+        @if (Model.Page < Model.TotalPages)
+        {
+            <a asp-action="Index" asp-route-page="@(Model.Page + 1)" asp-route-search="@ViewData["Search"]" asp-route-author="@ViewData["Author"]" asp-route-categoryId="@ViewData["CategoryId"]" asp-route-publicationYear="@ViewData["PublicationYear"]" asp-route-availableOnly="@ViewData["AvailableOnly"]" class="btn">Next</a>
+        }
+    </div>
+</div>

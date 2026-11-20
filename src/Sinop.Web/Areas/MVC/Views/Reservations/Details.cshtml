@@ -1,0 +1,22 @@
+@model ReservationResponse
+
+@{
+    ViewData["Title"] = "Reservation Details";
+}
+
+<h2>Reservation Details</h2>
+
+<div class="card">
+    <p><strong>Book:</strong> @Model.BookTitle</p>
+    <p><strong>User:</strong> @Model.UserId</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+    <p><strong>Queue Position:</strong> @Model.QueuePosition</p>
+    <p><strong>Reserved At:</strong> @Model.ReservedAt.ToString("yyyy-MM-dd")</p>
+    <p><strong>Pickup Deadline:</strong> @Model.PickupDeadline?.ToString("yyyy-MM-dd")</p>
+    @if (Model.AllocatedCopyAccessionNumber is not null)
+    {
+        <p><strong>Allocated Copy:</strong> @Model.AllocatedCopyAccessionNumber</p>
+    }
+</div>
+
+<a asp-action="Index" class="btn btn-outline">Back to Reservations</a>

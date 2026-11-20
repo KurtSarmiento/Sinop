@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sinop Digital Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="app-header">
+        <a class="brand-link" asp-area="" asp-controller="Home" asp-action="Index">
+            <img class="brand-mark" src="~/images/sinop-logo.svg" alt="Sinop logo" />
+            <span class="brand-copy">
+                <strong>Sinop Digital Library</strong>
+                <span>Knowledge. Access. Community.</span>
+            </span>
+        </a>
+        <div class="header-actions">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <span class="user-chip">@User.Identity.Name</span>
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-outline">Logout</button>
+                </form>
+            }
+            else
+            {
+                <a class="btn" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+            }
+        </div>
+    </header>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="app-shell">
+            <aside class="sidebar">
+                <nav class="nav-list" aria-label="Main navigation">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><span class="nav-icon" aria-hidden="true">⌂</span><span>Overview</span></a>
+                    <a class="nav-link" asp-area="MVC" asp-controller="Books" asp-action="Index"><span class="nav-icon" aria-hidden="true">▤</span><span>Catalog</span></a>
+                    <a class="nav-link" asp-area="MVC" asp-controller="Copies" asp-action="Index"><span class="nav-icon" aria-hidden="true">▦</span><span>Copies</span></a>
+                    <a class="nav-link" asp-area="MVC" asp-controller="Borrowers" asp-action="Index"><span class="nav-icon" aria-hidden="true">♙</span><span>Borrowers</span></a>
+                    <a class="nav-link" asp-area="MVC" asp-controller="Circulation" asp-action="Index"><span class="nav-icon" aria-hidden="true">↻</span><span>Circulation</span></a>
+                    <a class="nav-link" asp-area="MVC" asp-controller="Reservations" asp-action="Index"><span class="nav-icon" aria-hidden="true">◷</span><span>Reservations</span></a>
+                    <a class="nav-link" asp-area="MVC" asp-controller="Reports" asp-action="Index"><span class="nav-icon" aria-hidden="true">▥</span><span>Reports</span></a>
+                    <a class="nav-link" asp-area="MVC" asp-controller="Notifications" asp-action="Index"><span class="nav-icon" aria-hidden="true">◉</span><span>Notifications</span></a>
+                    @if (User.IsInRole("Librarian") || User.IsInRole("Administrator"))
+                    {
+                        <a class="nav-link" asp-area="MVC" asp-controller="Accounts" asp-action="Index"><span class="nav-icon" aria-hidden="true">♟</span><span>Accounts</span></a>
+                    }
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a class="nav-link" asp-area="MVC" asp-controller="Settings" asp-action="Index"><span class="nav-icon" aria-hidden="true">⚙</span><span>Settings</span></a>
+                    }
+                </nav>
+            </aside>
+            <main class="app-main">
+                <div class="content">
+                    @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+                    {
+                        <div class="error">@ViewData["ErrorMessage"]</div>
+                    }
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    }
+    else
+    {
+        <main>
+            @RenderBody()
+        </main>
+    }
+</body>
+</html>

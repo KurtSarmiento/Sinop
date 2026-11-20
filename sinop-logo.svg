@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="512" height="512" role="img" aria-label="Sinop logo">
+  <rect width="64" height="64" rx="14" fill="#6D1A2B"/>
+  <path d="M10 22Q21 17 32 23V50Q21 45 10 49Z" fill="#F7F1E5"/>
+  <path d="M54 22Q43 17 32 23V50Q43 45 54 49Z" fill="#F7F1E5" opacity=".88"/>
+  <path d="M28.5 10H35.5V36L32 32.5L28.5 36Z" fill="#C8A038"/>
+</svg>

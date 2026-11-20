@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<h2>Reports</h2>
+
+<div class="card">
+    <p><strong>Active Loans:</strong> @ViewData["ActiveLoans"]</p>
+    <p><strong>Overdue Loans:</strong> @ViewData["OverdueCount"]</p>
+    <p><strong>Total Copies:</strong> @ViewData["TotalCopies"]</p>
+    <p><strong>Available Copies:</strong> @ViewData["AvailableCopies"]</p>
+    <p><strong>Borrowed Copies:</strong> @ViewData["BorrowedCopies"]</p>
+    <p><strong>Pending Reservations:</strong> @ViewData["PendingReservations"]</p>
+</div>
+
+<a asp-action="Index" class="btn btn-outline">Refresh</a>

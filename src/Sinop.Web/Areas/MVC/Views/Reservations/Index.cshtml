@@ -1,0 +1,50 @@
+@model PagedResult<ReservationResponse>
+
+@{
+    ViewData["Title"] = "Reservations";
+}
+
+<h2>Reservations</h2>
+
+<div class="card">
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left;">Book</th>
+                <th style="text-align:left;">User</th>
+                <th style="text-align:center;">Queue Position</th>
+                <th style="text-align:center;">Status</th>
+                <th style="text-align:center;">Reserved At</th>
+                <th style="text-align:center;">Pickup Deadline</th>
+                <th style="text-align:center;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model.Items)
+            {
+                <tr>
+                    <td>@r.BookTitle</td>
+                    <td>@r.UserId</td>
+                    <td style="text-align:center;">@r.QueuePosition</td>
+                    <td style="text-align:center;">@r.Status</td>
+                    <td style="text-align:center;">@r.ReservedAt.ToString("yyyy-MM-dd")</td>
+                    <td style="text-align:center;">@r.PickupDeadline?.ToString("yyyy-MM-dd")</td>
+                    <td style="text-align:center;">
+                        @if (r.Status == Sinop.Domain.Enums.ReservationStatus.Queued)
+                        {
+                            <form asp-action="Cancel" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@r.Id" />
+                                <input type="hidden" name="userId" value="@r.UserId" />
+                                <button type="submit" class="btn btn-outline" style="padding:0.25rem 0.5rem; font-size:0.85rem;">Cancel</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="muted" style="margin-top:0.5rem;">
+    Page @Model.Page of @Model.TotalPages (@Model.TotalCount total)
+</div>

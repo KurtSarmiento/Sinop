@@ -1,0 +1,49 @@
+@model Dictionary<string, IList<Sinop.Infrastructure.Persistence.ApplicationUser>>
+
+@{
+	ViewData["Title"] = "Accounts";
+}
+
+<div class="section-heading catalog-heading">
+	<div>
+		<h2>Account Management</h2>
+		<p>Create and review library accounts.</p>
+	</div>
+	<a asp-action="Create" class="btn">Create account</a>
+</div>
+
+@if (!string.IsNullOrEmpty(TempData["Success"] as string))
+{
+	<div class="card" style="border-color:var(--sinop-gold); color:var(--sinop-navy);">
+		@TempData["Success"]
+	</div>
+}
+
+@foreach (var group in Model)
+{
+	<section class="card" style="margin-bottom:16px">
+		<div class="section-heading" style="margin:0 0 12px">
+			<div>
+				<h3>@group.Key</h3>
+				<p>@group.Value.Count account@(group.Value.Count == 1 ? "" : "s")</p>
+			</div>
+		</div>
+
+		@if (group.Value.Count == 0)
+		{
+			<p class="muted">No accounts are assigned to this role.</p>
+		}
+		else
+		{
+			<div class="book-grid" style="grid-template-columns:repeat(2,minmax(0,1fr));">
+				@foreach (var account in group.Value)
+				{
+					<article class="card" style="margin:0">
+						<strong style="color:var(--sinop-navy)">@(account.FullName ?? account.Email ?? account.UserName)</strong>
+						<p class="muted" style="margin:6px 0 0">@account.Email</p>
+					</article>
+				}
+			</div>
+		}
+	</section>
+}

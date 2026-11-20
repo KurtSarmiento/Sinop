@@ -1,0 +1,49 @@
+@model PagedResult<NotificationResponse>
+
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<h2>Notifications</h2>
+
+<div class="card">
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left;">Message</th>
+                <th style="text-align:center;">Read</th>
+                <th style="text-align:center;">Created At</th>
+                <th style="text-align:center;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var n in Model.Items)
+            {
+                <tr>
+                    <td>@n.Message</td>
+                    <td style="text-align:center;">@(n.IsRead ? "Yes" : "No")</td>
+                    <td style="text-align:center;">@n.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td style="text-align:center;">
+                        @if (!n.IsRead)
+                        {
+                            <form asp-action="MarkRead" method="post" style="display:inline;">
+                                <input type="hidden" name="notificationId" value="@n.Id" />
+                                <input type="hidden" name="userId" value="@n.UserId" />
+                                <button type="submit" class="btn btn-outline" style="padding:0.25rem 0.5rem; font-size:0.85rem;">Mark Read</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<form asp-action="MarkAllRead" method="post" style="display:inline;">
+    <input type="hidden" name="userId" value="@ViewData["UserId"]" />
+    <button type="submit" class="btn btn-outline">Mark All Read</button>
+</form>
+
+<div class="muted" style="margin-top:0.5rem;">
+    Page @Model.Page of @Model.TotalPages (@Model.TotalCount total)
+</div>

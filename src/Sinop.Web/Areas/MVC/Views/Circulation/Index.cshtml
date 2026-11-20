@@ -1,0 +1,48 @@
+@model PagedResult<LoanResponse>
+
+@{
+    ViewData["Title"] = "Active Loans";
+}
+
+<h2>Active Loans</h2>
+
+<div class="card">
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left;">Book</th>
+                <th style="text-align:left;">Accession</th>
+                <th style="text-align:left;">Borrower</th>
+                <th style="text-align:center;">Loan Date</th>
+                <th style="text-align:center;">Due Date</th>
+                <th style="text-align:center;">Overdue</th>
+                <th style="text-align:center;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loan in Model.Items)
+            {
+                <tr>
+                    <td>@loan.BookTitle</td>
+                    <td>@loan.AccessionNumber</td>
+                    <td>@loan.UserEmail</td>
+                    <td style="text-align:center;">@loan.LoanDate.ToString("yyyy-MM-dd")</td>
+                    <td style="text-align:center;">@loan.DueDate.ToString("yyyy-MM-dd")</td>
+                    <td style="text-align:center; color:@(loan.IsOverdue ? "red" : "inherit");">
+                        @(loan.IsOverdue ? "Yes" : "No")
+                    </td>
+                    <td style="text-align:center;">
+                        <form asp-action="Return" method="post" style="display:inline;">
+                            <input type="hidden" name="loanId" value="@loan.Id" />
+                            <button type="submit" class="btn btn-outline" style="padding:0.25rem 0.5rem; font-size:0.85rem;">Return</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="muted" style="margin-top:0.5rem;">
+    Page @Model.Page of @Model.TotalPages (@Model.TotalCount total)
+</div>

@@ -1,0 +1,23 @@
+# Visual Studio
+.vs/
+**/.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio generated files
+**/CopilotSnapshots/
+**/FileContentIndex/
+
+# Build outputs
+**/bin/
+**/obj/
+**/build/
+
+# Gradle
+**/.gradle/
+**/local.properties
+
+# Kotlin
+**/.kotlin/

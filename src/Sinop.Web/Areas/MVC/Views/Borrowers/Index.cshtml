@@ -1,0 +1,39 @@
+@model PagedResult<BorrowerResponse>
+
+@{
+    ViewData["Title"] = "Borrowers";
+}
+
+<h2>Borrowers</h2>
+
+<div class="card">
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left;">Email</th>
+                <th style="text-align:left;">Role</th>
+                <th style="text-align:center;">Active Loans</th>
+                <th style="text-align:center;">Active Reservations</th>
+                <th style="text-align:center;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in Model.Items)
+            {
+                <tr>
+                    <td>@b.Email</td>
+                    <td>@b.Role</td>
+                    <td style="text-align:center;">@b.ActiveLoans</td>
+                    <td style="text-align:center;">@b.ActiveReservations</td>
+                    <td style="text-align:center;">
+                        <a asp-action="Details" asp-route-userId="@b.Id" class="btn btn-outline" style="padding:0.25rem 0.5rem; font-size:0.85rem;">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="muted" style="margin-top:0.5rem;">
+    Page @Model.Page of @Model.TotalPages (@Model.TotalCount total)
+</div>

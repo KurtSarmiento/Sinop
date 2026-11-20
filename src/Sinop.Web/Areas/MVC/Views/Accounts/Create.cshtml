@@ -1,0 +1,83 @@
+@model AccountCreateRequest
+
+@{
+	ViewData["Title"] = "Create Account";
+	var isAdministrator = ViewData["IsAdministrator"] as bool? == true;
+}
+
+<div class="section-heading">
+	<div>
+		<h2>Create Account</h2>
+		<p>@(isAdministrator ? "Choose the role for this account." : "New accounts created by staff are borrowers.")</p>
+	</div>
+</div>
+
+<div class="card" style="max-width:680px">
+	<form asp-action="Create" method="post">
+		@Html.AntiForgeryToken()
+		@if (!ViewData.ModelState.IsValid)
+		{
+			<div class="account-create-message" role="alert">
+				<strong>Account could not be created.</strong>
+				<p>Please review the highlighted fields and try again.</p>
+				<ul>
+					@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+					{
+						<li>@error.ErrorMessage</li>
+					}
+				</ul>
+			</div>
+		}
+		@if (!string.IsNullOrEmpty(TempData["Error"] as string))
+		{
+			<div class="account-create-message" role="alert">
+				<strong>Account could not be created.</strong>
+				<p>@TempData["Error"]</p>
+			</div>
+		}
+
+		<div class="field">
+			<label asp-for="FullName"></label>
+			<input asp-for="FullName" />
+		</div>
+
+		<div class="field">
+			<label asp-for="Email"></label>
+			<input asp-for="Email" type="email" autocomplete="email" />
+		</div>
+
+		@if (isAdministrator)
+		{
+			<div class="field">
+				<label asp-for="Role"></label>
+				<select asp-for="Role">
+					<option value="Borrower">Borrower</option>
+					<option value="Librarian">Staff</option>
+					<option value="Administrator">Administrator</option>
+				</select>
+			</div>
+		}
+		else
+		{
+			<div class="field">
+				<label>Role</label>
+				<input value="Borrower" disabled />
+			</div>
+		}
+
+		<div class="field">
+			<label asp-for="Password"></label>
+			<input asp-for="Password" type="password" autocomplete="new-password" />
+		</div>
+
+		<div class="field">
+			<label asp-for="ConfirmPassword"></label>
+			<input asp-for="ConfirmPassword" type="password" autocomplete="new-password" />
+		</div>
+
+		<div class="button-row">
+			<button type="submit" class="btn">Create account</button>
+			<a asp-action="Index" class="btn btn-outline">Cancel</a>
+		</div>
+	</form>
+</div>

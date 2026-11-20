@@ -1,0 +1,15 @@
+@model BookCopyResponse
+
+@{
+    ViewData["Title"] = "Copy Details";
+}
+
+<h2>Copy Details</h2>
+
+<div class="card">
+    <p><strong>Accession Number:</strong> @Model.AccessionNumber</p>
+    <p><strong>Book:</strong> @Model.BookTitle</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+</div>
+
+<a asp-action="Index" class="btn btn-outline">Back to Inventory</a>

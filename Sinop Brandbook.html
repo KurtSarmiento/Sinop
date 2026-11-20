@@ -1,0 +1,191 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Sinop Brandbook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single column of labeled sections; logo first, then color, type, principles, UI samples. */
+:root{
+  --maroon:#6D1A2B; --maroon-deep:#3F0F19; --gold:#C8A038; --paper:#F7F1E5; --ink:#2A1015;
+  --bg:#F7F1E5; --fg:#2A1015; --muted:#6F5A5E; --card:#FFFBF2; --line:#E2D6BE; --accent:#6D1A2B;
+  --display:'Lora',Georgia,serif; --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1E0C10;--fg:#F3EBDC;--muted:#BBA8A6;--card:#2A1419;--line:#4A2A31;--accent:#D9B552;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1E0C10;--fg:#F3EBDC;--muted:#BBA8A6;--card:#2A1419;--line:#4A2A31;--accent:#D9B552;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.6;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.15}
+h2{font-size:1.75rem;color:var(--accent)}
+h3{font-size:1.05rem}
+p{margin:0}
+.label{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+section{display:flex;flex-direction:column;gap:20px}
+.hero{display:flex;flex-direction:column;gap:16px;border-bottom:2px solid var(--gold);padding-bottom:32px}
+.hero h1{font-size:clamp(2.4rem,7vw,4rem);color:var(--accent)}
+.hero p{max-width:60ch}
+.lockup{display:flex;align-items:center;gap:14px}
+.lockup svg{width:56px;height:56px;flex:none}
+.lockup .wm{font-family:var(--display);font-weight:700;font-size:2.1rem;letter-spacing:.01em;line-height:1}
+.lockup .tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;display:block;margin-top:6px;font-weight:400}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.panel{border-radius:10px;padding:32px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:170px;min-width:0}
+.on-paper{background:var(--paper);color:var(--maroon);border:1px solid var(--line)}
+.on-maroon{background:var(--maroon);color:var(--paper)}
+.on-gold{background:var(--gold);color:var(--maroon-deep)}
+.inv{--sq:var(--paper);--pg:var(--maroon);--rb:var(--gold)}
+svg.mark{--sq:var(--maroon);--pg:var(--paper);--rb:var(--gold)}
+.panel .cap{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.note{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.swatches{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.sw{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--card);min-width:0}
+.sw .chip{height:96px}
+.sw .meta{padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.sw .meta b{font-family:var(--display);font-size:1rem}
+.sw code{font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.bar{display:flex;height:44px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block}
+.type{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.spec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.spec .big{font-size:2.6rem;line-height:1}
+.principles{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.principles .note h3{color:var(--accent)}
+.ui{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{font:600 .9rem var(--body);padding:10px 18px;border-radius:8px;border:2px solid var(--maroon);background:var(--maroon);color:var(--paper);cursor:pointer}
+.btn.alt{background:transparent;color:var(--accent);border-color:var(--accent)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--maroon-deep)}
+.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pill{font:500 .75rem var(--mono);padding:4px 10px;border-radius:999px;letter-spacing:.04em}
+.p-avail{border:1.5px solid var(--accent);color:var(--accent)}
+.p-res{background:var(--gold);color:var(--maroon-deep)}
+.p-over{background:var(--maroon);color:var(--paper)}
+.book{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;max-width:460px}
+.cover{width:52px;height:74px;border-radius:3px 6px 6px 3px;background:var(--maroon);border-left:5px solid var(--gold);flex:none}
+.book div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.book b{font-family:var(--display)}
+.stack{display:flex;flex-wrap:wrap;gap:8px}
+.stack span{font:400 .75rem var(--mono);border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--muted)}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="14" fill="var(--sq)"/>
+    <path d="M10 22Q21 17 32 23V50Q21 45 10 49Z" fill="var(--pg)"/>
+    <path d="M54 22Q43 17 32 23V50Q43 45 54 49Z" fill="var(--pg)" opacity=".88"/>
+    <path d="M28.5 10H35.5V36L32 32.5L28.5 36Z" fill="var(--rb)"/>
+  </symbol>
+</svg>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="label">Brand guidelines · v1.0</span>
+    <h1>Sinop</h1>
+    <p>Digital Library and Reading Management System. Sinop helps readers find, borrow, reserve and return books, and helps librarians keep the catalog and circulation in order. The brand should feel like a well-kept reading room: warm, orderly and quietly confident.</p>
+  </header>
+
+  <section>
+    <span class="label">01 · Logo</span>
+    <h2>An open book with a bookmark ribbon</h2>
+    <p class="muted" style="max-width:62ch">The open book stands for the catalog. The gold ribbon marks your place, which is what the reading list and reservations do. Use the full lockup first, and the icon alone where space is tight (app icon, favicon).</p>
+    <div class="grid">
+      <div class="panel on-paper">
+        <div class="lockup"><svg class="mark"><use href="#mark"/></svg><div><span class="wm">Sinop</span><span class="tag">Digital Library</span></div></div>
+        <span class="cap">Primary · on Paper</span>
+      </div>
+      <div class="panel on-maroon">
+        <div class="lockup"><svg class="mark inv"><use href="#mark"/></svg><div><span class="wm">Sinop</span><span class="tag">Digital Library</span></div></div>
+        <span class="cap">Reversed · on Maroon</span>
+      </div>
+      <div class="panel on-gold">
+        <svg class="mark" width="72" height="72"><use href="#mark"/></svg>
+        <span class="cap">Icon · on Gold</span>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="note"><h3>Clear space</h3><p class="muted">Keep a margin equal to the width of the ribbon (one quarter of the icon) on all sides.</p></div>
+      <div class="note"><h3>Minimum size</h3><p class="muted">Icon: 24 px. Full lockup: 120 px wide. Below that, use the icon only.</p></div>
+      <div class="note"><h3>Don't</h3><p class="muted">Stretch, recolor outside the palette, add shadows, or place the maroon icon on a maroon background.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">02 · Color</span>
+    <h2>Maroon, gold and paper</h2>
+    <div class="bar" role="img" aria-label="Color proportion: 60 percent paper, 30 percent maroon, 10 percent gold">
+      <i style="width:60%;background:var(--paper)"></i><i style="width:30%;background:var(--maroon)"></i><i style="width:10%;background:var(--gold)"></i>
+    </div>
+    <p class="muted">Rough balance: 60% Paper, 30% Maroon, 10% Gold. Gold is for accents and highlights, never for long text.</p>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:var(--maroon)"></div><div class="meta"><b>Binding Maroon</b><code>#6D1A2B</code><span class="muted" style="font-size:.85rem">Primary. Headings, buttons, navigation.</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--gold)"></div><div class="meta"><b>Gilt Gold</b><code>#C8A038</code><span class="muted" style="font-size:.85rem">Accent. Ribbon, highlights, reservations.</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--paper)"></div><div class="meta"><b>Paper</b><code>#F7F1E5</code><span class="muted" style="font-size:.85rem">Background. Pages, cards, forms.</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--maroon-deep)"></div><div class="meta"><b>Deep Maroon</b><code>#3F0F19</code><span class="muted" style="font-size:.85rem">Support. Dark mode, text on gold.</span></div></div>
+      <div class="sw"><div class="chip" style="background:var(--ink)"></div><div class="meta"><b>Ink</b><code>#2A1015</code><span class="muted" style="font-size:.85rem">Support. Body text on Paper.</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">03 · Typography</span>
+    <h2>A bookish serif, a plain sans</h2>
+    <div class="type">
+      <div class="spec">
+        <span class="label">Display · headings, logo</span>
+        <span class="big" style="font-family:var(--display);font-weight:700">Lora</span>
+        <p style="font-family:var(--display);font-size:1.15rem">Aa Bb Cc 0123456789</p>
+        <p class="muted" style="font-size:.85rem">Weights 500, 600, 700. Titles, book names, section headings.</p>
+      </div>
+      <div class="spec">
+        <span class="label">Text · interface, body</span>
+        <span class="big" style="font-weight:600">Inter</span>
+        <p style="font-size:1.15rem">Aa Bb Cc 0123456789</p>
+        <p class="muted" style="font-size:.85rem">Weights 400, 500, 600. Forms, tables, buttons, paragraphs.</p>
+      </div>
+      <div class="spec">
+        <span class="label">Utility · data, labels</span>
+        <span class="big" style="font-family:var(--mono);font-weight:500">Mono</span>
+        <p style="font-family:var(--mono);font-size:1.05rem">ISBN 978-0-14-312779-6</p>
+        <p class="muted" style="font-size:.85rem">JetBrains Mono. ISBNs, due dates, call numbers, status tags.</p>
+      </div>
+    </div>
+    <div class="note">
+      <h3 style="font-size:1.6rem">Heading 1 · Lora 700 / 32</h3>
+      <h3>Heading 2 · Lora 600 / 22</h3>
+      <p>Body · Inter 400 / 16 / line-height 1.6. Keep lines to about 65 characters.</p>
+      <p class="muted" style="font-size:.85rem">Caption · Inter 400 / 13</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">04 · Design principles</span>
+    <h2>How Sinop should look and feel</h2>
+    <div class="principles">
+      <div class="note"><h3>Calm and ordered</h3><p class="muted">Generous space, clear grids, one primary action per screen. A library is quiet.</p></div>
+      <div class="note"><h3>Books come first</h3><p class="muted">Covers and titles lead. Interface chrome stays Paper and Maroon so covers carry the color.</p></div>
+      <div class="note"><h3>Gold means "yours"</h3><p class="muted">Use gold for what belongs to the reader: reservations, saved books, reading list marks.</p></div>
+      <div class="note"><h3>Clear status</h3><p class="muted">Available, reserved and overdue always use the same pill style, on web and in the Kotlin app.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="label">05 · In use</span>
+    <h2>Interface samples</h2>
+    <div class="ui">
+      <button class="btn" type="button">Borrow</button>
+      <button class="btn alt" type="button">Reserve</button>
+      <button class="btn gold" type="button">Add to reading list</button>
+    </div>
+    <div class="ui">
+      <span class="pill p-avail">AVAILABLE</span>
+      <span class="pill p-res">RESERVED</span>
+      <span class="pill p-over">OVERDUE · 3 DAYS</span>
+    </div>
+    <div class="book">
+      <div class="cover" role="img" aria-label="Book cover placeholder"></div>
+      <div><b>Noli Me Tangere</b><span class="muted" style="font-size:.9rem">José Rizal</span><span style="font-family:var(--mono);font-size:.75rem;color:var(--muted)">Due 04 Dec 2026</span></div>
+    </div>
+    <p class="muted" style="max-width:62ch">Book covers and metadata come from the Open Library API. Show the cover as supplied, with a Maroon placeholder and Gold spine when none exists.</p>
+    <div class="stack"><span>ASP.NET MVC</span><span>Web API</span><span>Hangfire</span><span>Kotlin + Room</span><span>Open Library API</span></div>
+  </section>
+</div>
+
+</body></html>

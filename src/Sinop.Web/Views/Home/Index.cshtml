@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Overview";
+}
+
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-kicker">Sinop Digital Library</span>
+        <h1>Knowledge for every reader.</h1>
+        <p>Manage the collection, support borrowers, coordinate circulation, and keep the library community connected from one welcoming workspace.</p>
+        <a class="btn hero-catalog-btn" asp-area="MVC" asp-controller="Books" asp-action="Index">Explore the catalog</a>
+    </div>
+</section>
+
+<div class="section-heading">
+    <div>
+        <h2>Library operations</h2>
+        <p>Quick access to the most-used areas.</p>
+    </div>
+</div>
+
+<section class="quick-grid" aria-label="Library operations">
+    <a class="quick-card" asp-area="MVC" asp-controller="Books" asp-action="Index">
+        <span>Collection</span>
+        <strong>Catalog</strong>
+        <small>Discover and maintain library materials.</small>
+    </a>
+    <a class="quick-card" asp-area="MVC" asp-controller="Circulation" asp-action="Index">
+        <span>Transactions</span>
+        <strong>Circulation</strong>
+        <small>Manage checkouts and returns.</small>
+    </a>
+    <a class="quick-card" asp-area="MVC" asp-controller="Borrowers" asp-action="Index">
+        <span>Community</span>
+        <strong>Borrowers</strong>
+        <small>View reader records and activity.</small>
+    </a>
+    <a class="quick-card" asp-area="MVC" asp-controller="Reservations" asp-action="Index">
+        <span>Requests</span>
+        <strong>Reservations</strong>
+        <small>Coordinate reserved materials.</small>
+    </a>
+</section>
+
+<section class="info-grid">
+    <article class="card">
+        <h3>About this system</h3>
+        <p>The Sinop Digital Library Reading Management System brings catalog records, physical inventory, borrower services, reservations, notifications, and circulation activity into a single administrative experience.</p>
+        <ul>
+            <li>Search and organize titles across the collection</li>
+            <li>Track copy status and availability</li>
+            <li>Support borrowing, returns, and reservations</li>
+            <li>Review reports and reader engagement</li>
+        </ul>
+    </article>
+    <div class="image-card" role="img" aria-label="Library shelves"></div>
+</section>

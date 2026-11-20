@@ -1,0 +1,36 @@
+@model Sinop.Web.DTOs.Auth.LoginRequest
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="login-page">
+    <div class="login-image" role="img" aria-label="Shelves in a library reading room"></div>
+    <div class="login-panel">
+        <a class="brand-link" asp-area="" asp-controller="Home" asp-action="Index">
+            <img class="brand-mark" src="~/images/sinop-logo.svg" alt="Sinop logo" />
+            <span class="brand-copy">
+                <strong>Sinop Digital Library</strong>
+                <span>Knowledge. Access. Community.</span>
+            </span>
+        </a>
+        <h1>Welcome back</h1>
+        <p>Sign in to continue to the library management system.</p>
+
+        <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+        <form asp-area="" asp-controller="Account" asp-action="Login" method="post">
+            <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+            <div class="field">
+                <label asp-for="Email">Email address</label>
+                <input asp-for="Email" type="email" autocomplete="email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="field">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="password" autocomplete="current-password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <button type="submit" class="btn" style="width:100%;">Sign in</button>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,65 @@
+@model BookDetailsResponse
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<h2>@Model.Title</h2>
+
+<div class="book-details-layout">
+    @if (!string.IsNullOrWhiteSpace(Model.CoverUrl))
+    {
+        <div class="book-details-cover-wrap">
+            <div class="book-cover-placeholder book-details-placeholder"><span>Sinop</span></div>
+            <img class="book-details-cover" src="@Model.CoverUrl" alt="Cover of @Model.Title" onerror="this.style.display='none'" />
+        </div>
+    }
+    else
+    {
+        <div class="book-cover-placeholder book-details-placeholder"><span>Sinop</span></div>
+    }
+    <div class="card">
+        <p><strong>ISBN:</strong> @Model.ISBN</p>
+        <p><strong>Category:</strong> @(string.IsNullOrWhiteSpace(Model.CategoryName) ? "Uncategorized" : Model.CategoryName)</p>
+        <p><strong>Authors:</strong> @string.Join(", ", Model.Authors)</p>
+        @if (Model.FirstPublishYear.HasValue)
+        {
+            <p><strong>Published:</strong> @Model.FirstPublishYear</p>
+        }
+        <p><strong>Summary:</strong> @(string.IsNullOrWhiteSpace(Model.Summary) ? "Summary not available." : Model.Summary)</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Physical Copies (@Model.Copies.Count)</h3>
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left;">Accession Number</th>
+                <th style="text-align:left;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var copy in Model.Copies)
+            {
+                <tr>
+                    <td>@copy.AccessionNumber</td>
+                    <td>@copy.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="button-row">
+    <a asp-action="Index" class="btn btn-outline">Back to Catalog</a>
+    @if (User.IsInRole("Librarian") || User.IsInRole("Administrator"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn">Edit book</a>
+        <form asp-action="Archive" method="post" onsubmit="return confirm('Remove this book from the catalog?');">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="btn btn-danger">Remove book</button>
+        </form>
+    }
+</div>

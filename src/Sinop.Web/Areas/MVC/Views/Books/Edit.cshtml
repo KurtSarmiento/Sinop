@@ -1,0 +1,46 @@
+@model BookRequest
+@using Sinop.Domain.Entities
+
+@{
+    ViewData["Title"] = "Edit Book";
+    var categories = ViewData["Categories"] as IEnumerable<Category> ?? Enumerable.Empty<Category>();
+}
+
+<h2>Edit Book</h2>
+
+<div class="card" style="max-width:760px">
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="account-create-message"></div>
+        <div class="field">
+            <label asp-for="Title">Title</label>
+            <input asp-for="Title" type="text" />
+        </div>
+        <div class="field">
+            <label asp-for="ISBN">ISBN</label>
+            <input asp-for="ISBN" type="text" />
+        </div>
+        <div class="field">
+            <label asp-for="AuthorNames">Authors</label>
+            <input asp-for="AuthorNames" type="text" placeholder="Separate multiple authors with commas" />
+        </div>
+        <div class="field">
+            <label asp-for="CategoryId">Category</label>
+            <select asp-for="CategoryId">
+                <option value="">Select a category</option>
+                @foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+        </div>
+        <div class="field">
+            <label asp-for="Summary">Summary</label>
+            <textarea asp-for="Summary" rows="4" style="width:100%; border:1px solid #cbd4dd; border-radius:8px; padding:10px;"></textarea>
+        </div>
+        <div class="button-row">
+            <button type="submit" class="btn">Save changes</button>
+            <a asp-action="Index" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>
